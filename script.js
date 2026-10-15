@@ -52,14 +52,19 @@ if (heroCard) {
 
 // Authentication State Listener
 onAuthStateChanged(auth, (user) => {
+    console.log("Auth state changed. User:", user ? "Logged In" : "Logged Out");
     if (user) {
         isAdmin = true;
         authBtn.textContent = "Logout";
         addProjectBtn.classList.remove('hidden');
+        
+        document.body.classList.add('admin-mode'); 
     } else {
         isAdmin = false;
         authBtn.textContent = "Admin Login";
         addProjectBtn.classList.add('hidden');
+        
+        document.body.classList.remove('admin-mode'); 
     }
     loadProjects(); 
 });
