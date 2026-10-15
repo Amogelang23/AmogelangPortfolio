@@ -100,6 +100,7 @@ addProjectBtn.addEventListener('click', () => {
     document.getElementById('projectId').value = '';
     document.getElementById('projTitle').value = '';
     document.getElementById('projIcon').value = '';
+    document.getElementById('projTech').value = '';
     document.getElementById('projDesc').value = '';
     document.getElementById('projWebLink').value = '';
     document.getElementById('projApkLink').value = '';
@@ -116,6 +117,7 @@ document.getElementById('saveProjectBtn').addEventListener('click', async () => 
         title: document.getElementById('projTitle').value,
         category: document.getElementById('projCategory').value,
         icon: document.getElementById('projIcon').value,
+        techStack: document.getElementById('projTech').value,
         description: document.getElementById('projDesc').value,
         webLink: document.getElementById('projWebLink').value,
         apkLink: document.getElementById('projApkLink').value,
@@ -173,6 +175,7 @@ async function loadProjects() {
                     </div>
                     <div class="flip-card-back">
                         <h3>${data.title}</h3>
+                        <p style="font-size: 0.9rem; color: #7c3aed; margin-top: 5px;"><strong>Tech:</strong> ${data.techStack || 'Not specified'}</p>
                         <p style="margin: 10px 0; color: #ccc;">${data.description}</p>
                         ${linkButton}
                     </div>
@@ -216,6 +219,7 @@ function attachAdminListeners() {
                 document.getElementById('projTitle').value = targetData.title;
                 document.getElementById('projCategory').value = targetData.category;
                 document.getElementById('projIcon').value = targetData.icon;
+                document.getElementById('projTech').value = targetData.techStack || '';
                 document.getElementById('projDesc').value = targetData.description;
                 document.getElementById('projWebLink').value = targetData.webLink || '';
                 document.getElementById('projApkLink').value = targetData.apkLink || '';
