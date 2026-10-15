@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -13,11 +13,13 @@ const firebaseConfig = {
   measurementId: "G-FPQL0S91Y8"
 };
 
+// 3. Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// 4. DOM Elements
 document.getElementById("currentYear").textContent = new Date().getFullYear();
 const authBtn = document.getElementById('authBtn');
 const addProjectBtn = document.getElementById('addProjectBtn');
@@ -30,6 +32,7 @@ const apkLinkContainer = document.getElementById('apkLinkContainer');
 
 let isAdmin = false;
 
+// UI Interactivity (Hero Tilt)
 const heroCard = document.querySelector(".hero-tilt");
 if (heroCard) {
     heroCard.addEventListener("mousemove", (e) => {
@@ -47,6 +50,7 @@ if (heroCard) {
     });
 }
 
+// Authentication State Listener
 onAuthStateChanged(auth, (user) => {
     if (user) {
         isAdmin = true;
@@ -60,6 +64,7 @@ onAuthStateChanged(auth, (user) => {
     loadProjects(); 
 });
 
+// Auth Button Logic
 authBtn.addEventListener('click', () => {
     if (isAdmin) {
         signOut(auth);
@@ -81,6 +86,7 @@ document.getElementById('submitLogin').addEventListener('click', async () => {
     }
 });
 
+// Category Dropdown Listener (Show/Hide APK link)
 projCategory.addEventListener('change', (e) => {
     if (e.target.value === 'app') {
         apkLinkContainer.classList.remove('hidden');
@@ -89,6 +95,7 @@ projCategory.addEventListener('change', (e) => {
     }
 });
 
+// Open Add Project Modal
 addProjectBtn.addEventListener('click', () => {
     document.getElementById('projectId').value = '';
     document.getElementById('projTitle').value = '';
@@ -102,6 +109,7 @@ addProjectBtn.addEventListener('click', () => {
 
 document.getElementById('closeProject').addEventListener('click', () => projectModal.classList.add('hidden'));
 
+// Save or Update Project
 document.getElementById('saveProjectBtn').addEventListener('click', async () => {
     const id = document.getElementById('projectId').value;
     const projectData = {
@@ -126,6 +134,7 @@ document.getElementById('saveProjectBtn').addEventListener('click', async () => 
     }
 });
 
+// Fetch and Render Projects
 async function loadProjects() {
     websitesGrid.innerHTML = '';
     appsGrid.innerHTML = '';
@@ -181,6 +190,7 @@ async function loadProjects() {
     attachAdminListeners();
 }
 
+// Attach listeners to dynamically generated edit/delete buttons
 function attachAdminListeners() {
     document.querySelectorAll('.delete-btn').forEach(btn => {
         btn.addEventListener('click', async (e) => {
@@ -223,4 +233,5 @@ function attachAdminListeners() {
     });
 }
 
+// Initial load
 loadProjects();
