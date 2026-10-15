@@ -1,0 +1,245 @@
+/* --- 1. VARIABLES & RESET --- */
+:root {
+    --bg-color: #050505;
+    --text-white: #ffffff;
+    --text-gray: rgba(255, 255, 255, 0.7);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --accent-glow: #7c3aed; /* Purple glow */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-white);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* --- 2. BACKGROUND BLOBS (Animation) --- */
+.background-wrapper {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.6;
+    animation: float 10s infinite alternate ease-in-out;
+}
+
+.blob-1 { top: -10%; left: -10%; width: 500px; height: 500px; background: #4f46e5; }
+.blob-2 { bottom: -10%; right: -10%; width: 400px; height: 400px; background: #db2777; animation-duration: 15s; }
+
+@keyframes float {
+    from { transform: translate(0, 0); }
+    to { transform: translate(0px, 5px); }
+}
+
+/* --- 3. LAYOUT & HERO --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* Common Glass Panel Style */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 50px;
+    margin-bottom: 50px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+h1.title {
+    font-size: 4rem;
+    background: linear-gradient(to bottom, #fff, #999);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.subtitle { color: var(--text-gray); font-size: 1.25rem; margin-bottom: 20px; }
+.text-body { line-height: 1.6; color: #ddd; max-width: 800px; }
+
+/* --- 4. 3D FLIP CARDS --- */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.flip-card {
+    background-color: transparent;
+    height: 350px;
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; 
+    border-radius: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+}
+
+.flip-card-back {
+    background: rgba(0, 0, 0, 0.6); 
+    transform: rotateY(180deg);
+}
+
+/* Icon Styling */
+.icon-box {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* Button Styling (Uiverse Inspired) */
+.view-btn {
+    margin-top: 20px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 50px;
+    background: white;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+
+.view-btn:hover {
+    background: var(--accent-glow);
+    color: white;
+    box-shadow: 0 0 20px var(--accent-glow);
+    transform: scale(1.05);
+}
+
+/* --- ADMIN CONTROLS & MODALS --- */
+.admin-header {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    display: flex;
+    gap: 10px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    padding: 30px;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-gray);
+}
+
+.close-modal:hover {
+    color: var(--text-white);
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.form-input::placeholder {
+    color: #aaa;
+}
+
+.form-input option {
+    background: #333;
+}
+
+.admin-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.action-btn {
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.action-btn:hover {
+    background: var(--accent-glow);
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amogelang's Portfolio</title>
+    <link rel="icon" type="image/png" href="1770299401479.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-wrapper">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <!-- Admin Controls -->
+    <div class="admin-header">
+        <button id="authBtn" class="view-btn admin-btn">Admin Login</button>
+        <button id="addProjectBtn" class="view-btn admin-btn hidden">Add New Project</button>
+    </div>
+
+    <main class="container">
+        <section class="glass-panel hero-tilt">
+            <h1 class="title">Amogelang Matome</h1>
+            <p class="subtitle">Software Developer & Creative Thinker</p>
+            <div class="text-body">
+                <p>
+                    I started my coding journey with a curiosity for how screens light up with logic. 
+                    From writing my first line of HTML to architecting complex databases, I have loved every step.
+                    I focus on building clean, efficient code that solves real-world problems. 
+                    Below are the projects that define my path so far.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2 style="margin-bottom: 30px; font-size: 2rem;"> Websites</h2>
+            <div id="websites-grid" class="grid-container">
+                <!-- Dynamically populated by JavaScript -->
+            </div>
+        </section>
+
+        <section>
+            <h2 style="margin-bottom: 30px; font-size: 2rem; margin-top: 40px;"> Apps</h2>
+            <div id="apps-grid" class="grid-container">
+                <!-- Dynamically populated by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p style="margin: 10px 0; color: #ccc; text-align: center;">Copyright &copy; Designed and developed by Amogelang <span id="currentYear"></span></p>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <span class="close-modal" id="closeLogin">&times;</span>
+            <h2>Admin Login</h2>
+            <input type="email" id="adminEmail" placeholder="Email" class="form-input">
+            <input type="password" id="adminPassword" placeholder="Password" class="form-input">
+            <button id="submitLogin" class="view-btn">Login</button>
+        </div>
+    </div>
+
+    <!-- Project Form Modal -->
+    <div id="projectModal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <span class="close-modal" id="closeProject">&times;</span>
+            <h2 id="modalTitle">Add Project</h2>
+            <input type="hidden" id="projectId">
+            
+            <input type="text" id="projTitle" placeholder="Project Title" class="form-input">
+            
+            <select id="projCategory" class="form-input">
+                <option value="website">Website</option>
+                <option value="app">App</option>
+            </select>
+            
+            <input type="text" id="projIcon" placeholder="Font Awesome Class (e.g. fa-solid fa-car)" class="form-input">
+            
+            <textarea id="projDesc" placeholder="Short Description" class="form-input" rows="3"></textarea>
+            
+            <input type="text" id="projWebLink" placeholder="Website URL (Optional)" class="form-input">
+            
+            <div id="apkLinkContainer" class="hidden">
+                <input type="text" id="projApkLink" placeholder="APK File Path or URL" class="form-input">
+            </div>
+            
+            <button id="saveProjectBtn" class="view-btn">Save Project</button>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
